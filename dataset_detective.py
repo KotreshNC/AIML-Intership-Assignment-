@@ -1,4 +1,6 @@
 import pandas as pd
+import numpy as np
+import time
 
 
 def dataset_detective(data_path):
@@ -85,11 +87,55 @@ def dataset_detective(data_path):
         print(f"{i}. {insight}")
 
 
+def numpy_speed_test(n=1_000_000):
+    print("\n===== NumPy Speed Test =====")
+    # Prepare data
+    py_list = list(range(n))
+    np_array = np.arange(n)
+
+    # Python list sum
+    t0 = time.perf_counter()
+    total_list = sum(py_list)
+    t1 = time.perf_counter()
+    list_time = t1 - t0
+    print(f"Python list sum ({n} elements): {total_list} (time: {list_time:.6f}s)")
+
+    # NumPy array sum
+    t2 = time.perf_counter()
+    total_np = np_array.sum()
+    t3 = time.perf_counter()
+    np_time = t3 - t2
+    print(f"NumPy array sum ({n} elements): {total_np} (time: {np_time:.6f}s)")
+
+    # Python list comprehension add
+    t4 = time.perf_counter()
+    _ = [x + 1 for x in py_list]
+    t5 = time.perf_counter()
+    list_op_time = t5 - t4
+
+    # NumPy vectorized add
+    t6 = time.perf_counter()
+    _ = np_array + 1
+    t7 = time.perf_counter()
+    np_op_time = t7 - t6
+
+    print(f"Python list add 1 (comprehension): {list_op_time:.6f}s")
+    print(f"NumPy vectorized add 1: {np_op_time:.6f}s")
+
+    print("\nObservations:")
+    print("1. For large numeric arrays, NumPy’s vectorized operations are significantly faster than Python loops/list comprehensions.")
+    print("2. NumPy’s built-in reductions (sum, mean) generally outperform Python’s built-in sum on lists for large data.")
+    print("3. NumPy uses contiguous memory and C loops, reducing Python interpreter overhead for numeric workloads.")
+
+
 if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser(description='Dataset Detective: quick dataset inspection')
     parser.add_argument('--data', type=str, default='mall_customers.csv', help='Path to CSV dataset file')
+    parser.add_argument('--numpy-test', action='store_true', help='Run NumPy speed test (1M elements)')
     args = parser.parse_args()
 
     dataset_detective(args.data)
+    if args.numpy_test:
+        numpy_speed_test()
