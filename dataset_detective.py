@@ -163,6 +163,28 @@ def student_data_manager():
     print(f"Class average: {class_avg:.2f}")
 
 
+def fizzbuzz_logic_builder(start=1, end=50):
+    print("\n===== Logic Builder: FizzBuzz 1-50 =====")
+    fizz_count = buzz_count = fizzbuzz_count = 0
+    for i in range(start, end + 1):
+        if i % 15 == 0:
+            print("FizzBuzz")
+            fizzbuzz_count += 1
+        elif i % 3 == 0:
+            print("Fizz")
+            fizz_count += 1
+        elif i % 5 == 0:
+            print("Buzz")
+            buzz_count += 1
+        else:
+            print(i)
+
+    print("\nOccurrence counts:")
+    print(f"Fizz: {fizz_count}")
+    print(f"Buzz: {buzz_count}")
+    print(f"FizzBuzz: {fizzbuzz_count}")
+
+
 if __name__ == '__main__':
     import argparse
 
@@ -170,6 +192,7 @@ if __name__ == '__main__':
     parser.add_argument('--data', type=str, default='mall_customers.csv', help='Path to CSV dataset file')
     parser.add_argument('--numpy-test', action='store_true', help='Run NumPy speed test (1M elements)')
     parser.add_argument('--student-data', action='store_true', help='Run student data manager demo')
+    parser.add_argument('--logic-builder', action='store_true', help='Run FizzBuzz logic builder demo')
     args = parser.parse_args()
 
     dataset_detective(args.data)
@@ -177,3 +200,5 @@ if __name__ == '__main__':
         numpy_speed_test()
     if args.student_data:
         student_data_manager()
+    if args.logic_builder:
+        fizzbuzz_logic_builder()
