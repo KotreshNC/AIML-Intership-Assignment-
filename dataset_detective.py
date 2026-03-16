@@ -163,6 +163,32 @@ def student_data_manager():
     print(f"Class average: {class_avg:.2f}")
 
 
+def smart_input_program(name=None, age=None, hobby=None):
+    print("\n===== Smart Input Program =====")
+    if name is None:
+        name = input("Enter your name: ").strip()
+    if age is None:
+        age_input = input("Enter your age: ").strip()
+        try:
+            age = int(age_input)
+        except ValueError:
+            print("Invalid age input. Age must be an integer.")
+            return
+    if hobby is None:
+        hobby = input("Enter your hobby: ").strip()
+
+    if age < 13:
+        category = "child"
+    elif age < 20:
+        category = "teen"
+    elif age < 60:
+        category = "adult"
+    else:
+        category = "senior"
+
+    print(f"Hello {name}! You are {age} years old, a {category}. It's great that you enjoy {hobby}.")
+
+
 def fizzbuzz_logic_builder(start=1, end=50):
     print("\n===== Logic Builder: FizzBuzz 1-50 =====")
     fizz_count = buzz_count = fizzbuzz_count = 0
@@ -193,6 +219,7 @@ if __name__ == '__main__':
     parser.add_argument('--numpy-test', action='store_true', help='Run NumPy speed test (1M elements)')
     parser.add_argument('--student-data', action='store_true', help='Run student data manager demo')
     parser.add_argument('--logic-builder', action='store_true', help='Run FizzBuzz logic builder demo')
+    parser.add_argument('--smart-input', action='store_true', help='Run Smart Input Program')
     args = parser.parse_args()
 
     dataset_detective(args.data)
@@ -202,3 +229,5 @@ if __name__ == '__main__':
         student_data_manager()
     if args.logic_builder:
         fizzbuzz_logic_builder()
+    if args.smart_input:
+        smart_input_program()
