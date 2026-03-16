@@ -1,0 +1,8 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "/^python \"d:\\\\AIML Intership\\\\AIML intership  dayily Assignment\\\\house_price_predictor\\.py\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        }
+    }
+}
