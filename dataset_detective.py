@@ -128,14 +128,52 @@ def numpy_speed_test(n=1_000_000):
     print("3. NumPy uses contiguous memory and C loops, reducing Python interpreter overhead for numeric workloads.")
 
 
+def student_data_manager():
+    print("\n===== Student Data Manager =====")
+    students = [
+        {'name': 'Alice', 'math': 85, 'science': 90, 'english': 78},
+        {'name': 'Bob', 'math': 92, 'science': 88, 'english': 84},
+        {'name': 'Carol', 'math': 74, 'science': 70, 'english': 82},
+        {'name': 'Dave', 'math': 88, 'science': 95, 'english': 91},
+        {'name': 'Eve', 'math': 79, 'science': 83, 'english': 76},
+    ]
+
+    for s in students:
+        s['total'] = s['math'] + s['science'] + s['english']
+        s['avg'] = s['total'] / 3
+        if s['avg'] >= 90:
+            s['grade'] = 'A+'
+        elif s['avg'] >= 80:
+            s['grade'] = 'A'
+        elif s['avg'] >= 70:
+            s['grade'] = 'B'
+        elif s['avg'] >= 60:
+            s['grade'] = 'C'
+        else:
+            s['grade'] = 'D'
+
+    topper = max(students, key=lambda x: x['avg'])
+    class_avg = sum(s['avg'] for s in students) / len(students)
+
+    print("\nStudent details:")
+    for s in students:
+        print(f"{s['name']} - total: {s['total']}, avg: {s['avg']:.2f}, grade: {s['grade']}")
+
+    print(f"\nTopper: {topper['name']} with average {topper['avg']:.2f}")
+    print(f"Class average: {class_avg:.2f}")
+
+
 if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser(description='Dataset Detective: quick dataset inspection')
     parser.add_argument('--data', type=str, default='mall_customers.csv', help='Path to CSV dataset file')
     parser.add_argument('--numpy-test', action='store_true', help='Run NumPy speed test (1M elements)')
+    parser.add_argument('--student-data', action='store_true', help='Run student data manager demo')
     args = parser.parse_args()
 
     dataset_detective(args.data)
     if args.numpy_test:
         numpy_speed_test()
+    if args.student_data:
+        student_data_manager()
