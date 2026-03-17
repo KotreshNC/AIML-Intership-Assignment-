@@ -121,3 +121,4 @@ if __name__ == "__main__":
     for r in sample_reviews:
         print(f"  - {r} -> {predict_review(r)}")
     main()
+
