@@ -4,5 +4,7 @@
             "approve": true,
             "matchCommandLine": true
         }
-    }
+    },
+    "DockerRun.DisableAutoGenerateConfig": true,
+    "liveServer.settings.port": 5501
 }
